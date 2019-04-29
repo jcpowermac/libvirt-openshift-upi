@@ -1,0 +1,17 @@
+[localhosts]
+localhost ansible_connection=local
+
+[libvirt]
+libvirt1 ansible_host=172.31.52.110
+
+[masters]
+master1.virtomation.com ip=172.31.50.101
+
+[workers]
+worker1.virtomation.com ip=172.31.50.111
+
+[bootstrap]
+bootstrap1.virtomation.com ip=172.31.50.100
+
+[lb]
+lb1.virtomation.com

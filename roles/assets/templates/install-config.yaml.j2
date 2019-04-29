@@ -1,0 +1,14 @@
+apiVersion: v1beta3
+baseDomain: {{ base_domain }}
+compute:
+- name: worker
+  replicas: {{ worker_replicas | default(1) }}
+controlPlane:
+  name: master
+  replicas: {{ control_plane_replicas | default(1) }}
+metadata:
+  name: {{ cluster_id }}
+platform:
+  none: {}
+pullSecret: '{{ lookup('file', '~/pull-secret.json') }}'
+sshKey: {{ lookup('file', '~/.ssh/id_rsa.pub') }}

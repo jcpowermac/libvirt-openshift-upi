@@ -1,0 +1,17 @@
+---
+- name: OpenShift installer
+  hosts: masters:workers:bootstrap
+  gather_facts: false
+  tasks:
+  - import_role:
+      name: nodes
+  - import_role:
+      name: machines
+    #  - import_role:
+    #      name: assets
+    #
+    #  - command: "{{ lookup('env', 'GOPATH') }}/src/github.com/openshift/installer/bin/openshift-install {{ item }} --dir={{ lookup('env', 'PWD') }}/assets --log-level=debug"
+    #    with_items:
+    #    - "create manifests"
+    #    - "create ignition-configs"
+    #

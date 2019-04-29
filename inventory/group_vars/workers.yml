@@ -1,0 +1,4 @@
+---
+node_type: worker
+ansible_connection: local
+

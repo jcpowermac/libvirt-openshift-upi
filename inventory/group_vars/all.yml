@@ -1,0 +1,13 @@
+---
+base_domain: virtomation.com
+cluster_id: virtomation
+
+mask: 24
+gw: 172.31.50.1
+dns: 172.31.52.123
+iface: enp1s0
+
+libvirt_uri: 'qemu+ssh://root@172.31.52.110/system'
+
+libvirt_base_vol_path: '/nvme/'
+libvirt_rhcos_path: '/instances/rhcos-clean.qcow2'

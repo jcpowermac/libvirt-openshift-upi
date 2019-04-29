@@ -1,0 +1,4 @@
+---
+node_type: bootstrap
+ansible_connection: local
+

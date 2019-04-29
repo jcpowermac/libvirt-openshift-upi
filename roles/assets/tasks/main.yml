@@ -1,0 +1,5 @@
+---
+- name: Create install-config.yaml
+  template:
+    src: install-config.yaml.j2
+    dest: "{{ lookup('env', 'PWD') }}/assets/install-config.yaml"
