@@ -1,0 +1,9 @@
+---
+
+client_url: "https://mirror.openshift.com/pub/openshift-v4/clients/oc/4.1/linux/oc.tar.gz"
+client_dest: "{{ ansible_user_dir }}/bin"
+
+registry_url: "registry.svc.ci.openshift.org/origin/release"
+tag: "4.1"
+
+pull_secret: "~/pull-secret.json"

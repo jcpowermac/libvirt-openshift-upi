@@ -1,0 +1,11 @@
+---
+
+- name: Create Ignition Files
+  copy:
+    content: "{{ ignition_json | to_json }}"
+    dest: "/var/lib/libvirt/images/{{ inventory_hostname }}.ign"
+    owner: qemu
+    group: qemu
+  delegate_to: libvirt1
+
+

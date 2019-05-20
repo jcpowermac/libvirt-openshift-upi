@@ -1,4 +1,14 @@
 ---
+- name: OpenShift Prereq and Configuration
+  hosts: localhost
+  connection: local
+  gather_facts: true
+  tasks:
+  - import_role:
+      name: openshift_client
+  - import_role:
+      name: assets
+
 - name: OpenShift installer
   hosts: masters:workers:bootstrap
   gather_facts: false
@@ -7,11 +17,4 @@
       name: nodes
   - import_role:
       name: machines
-    #  - import_role:
-    #      name: assets
-    #
-    #  - command: "{{ lookup('env', 'GOPATH') }}/src/github.com/openshift/installer/bin/openshift-install {{ item }} --dir={{ lookup('env', 'PWD') }}/assets --log-level=debug"
-    #    with_items:
-    #    - "create manifests"
-    #    - "create ignition-configs"
-    #
+

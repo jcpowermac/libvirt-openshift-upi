@@ -11,7 +11,7 @@
   <os>
     <type arch='x86_64' machine='pc-q35-3.0'>hvm</type>
     <boot dev='hd'/>
-{% if direct_kernel_bool | default(false) %}
+{% if direct_kernel | default(false) %}
     <kernel>/var/lib/libvirt/images/vmlinuz-4.18.0-80.el8.x86_64</kernel>
     <initrd>/var/lib/libvirt/images/initramfs-4.18.0-80.el8.x86_64.img</initrd>
     <cmdline>root=/dev/vda3 console=tty0 console=ttyS0,115200n8 rootflags=defaults,prjquota rw ignition.firstboot root=UUID=a1408c9d-310a-402f-89ab-1fc5e9faf9f0 ostree=/ostree/boot.0/rhcos/0ac6a13595ed62cdf85b597507d0bcfe97add2b91f121b8ec731a00a4f052f01/0 coreos.oem.id=qemu ignition.platform.id=qemu rd.neednet=1 ip={{ ip }}::{{ gw }}:255.255.255.0:rhcos:{{ iface }}:none:{{ dns }}</cmdline>

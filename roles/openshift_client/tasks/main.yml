@@ -1,0 +1,18 @@
+---
+- name: Download and extract OpenShift client
+  unarchive:
+    src: "{{ client_url }}"
+    dest: "{{ client_dest }}"
+    remote_src: yes
+
+- name: Extract OpenShift Installer
+  command: "{{ client_dest }}/oc adm release extract --to={{ client_dest }} --command='openshift-install' --command-os='linux' {{ registry_url }}:{{ tag }} -a {{ pull_secret }}"
+
+
+  #- name: Extract Binaries
+  #  unarchive:
+  #    src: "{{ item }}"
+  #    dest: "{{ client_dest }}"
+  #  with_fileglob:
+  #  - "{{ client_dest }}/*.tar.gz"
+  #

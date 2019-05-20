@@ -1,28 +1,39 @@
 ---
+
 ignition_updates:
-  systemd:
-    units:
-      #- name: reboot.service
-      #  enable: true
-      #  contents: |
-      #    [Unit]
-      #    ConditionFirstBoot=yes
-      #    [Service]
-      #    Type=idle
-      #    ExecStart=/sbin/reboot
-      #    [Install]
-      #    WantedBy=multi-user.target
-    - name: config-static-network.service
-      enable: true
-      contents: |
-        [Unit]
-        ConditionFirstBoot=yes
-        After=network.target
-        [Service]
-        Type=oneshot
-        ExecStart=/bin/hostnamectl set-hostname --static {{ inventory_hostname }}
-        ExecStart=/bin/nmcli con add con-name static-{{ iface }} ifname {{ iface }} type ethernet ip4 {{ ip }}/{{ mask }} gw4 {{ gw }}
-        ExecStart=/bin/nmcli con mod static-{{ iface }} ipv4.dns {{ dns }}
-        ExecStart=/bin/nmcli con up static-{{ iface }} iface {{ iface }}
-        [Install]
-        WantedBy=multi-user.target
+  storage:
+    files:
+    - filesystem: "root"
+      path: "/etc/sysconfig/network-scripts/ifcfg-{{ iface }}"
+      mode: 420
+      contents:
+        source: "data:,{{ lookup('template', 'ifcfg.j2') | urlencode() }}"
+
+
+        #ignition_updates:
+        #  systemd:
+        #    units:
+        #    - name: reboot.service
+        #      enable: true
+        #      contents: |
+        #        [Unit]
+        #        ConditionFirstBoot=yes
+        #        [Service]
+        #        Type=idle
+        #        ExecStart=/sbin/reboot
+        #        [Install]
+        #        WantedBy=multi-user.target
+        #    - name: config-static-network.service
+        #      enable: true
+        #      contents: |
+        #        [Unit]
+        #        ConditionFirstBoot=yes
+        #        After=network.target
+        #        [Service]
+        #        Type=oneshot
+        #        ExecStart=/bin/hostnamectl set-hostname --static {{ inventory_hostname }}
+        #        ExecStart=/bin/nmcli con add con-name static-{{ iface }} ifname {{ iface }} type ethernet ip4 {{ ip }}/{{ mask }} gw4 {{ gw }}
+        #        ExecStart=/bin/nmcli con mod static-{{ iface }} ipv4.dns {{ dns }}
+        #        ExecStart=/bin/nmcli con up static-{{ iface }} iface {{ iface }}
+        #        [Install]
+        #        WantedBy=multi-user.target

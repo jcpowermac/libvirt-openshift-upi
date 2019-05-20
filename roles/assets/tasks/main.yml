@@ -3,3 +3,8 @@
   template:
     src: install-config.yaml.j2
     dest: "{{ lookup('env', 'PWD') }}/assets/install-config.yaml"
+
+- command: "openshift-install {{ item }} --dir={{ lookup('env', 'PWD') }}/assets"
+  with_items:
+  - "create manifests"
+  - "create ignition-configs"

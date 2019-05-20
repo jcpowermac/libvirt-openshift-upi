@@ -4,11 +4,16 @@
   set_fact:
     ignition_json: "{{ lookup('file', lookup('env', 'PWD') ~ '/assets/' ~ node_type ~ '.ign') | from_json }}"
 
+    #- name: combine
+    #  set_fact:
+    #    systemd_units: "{{ ignition_json['systemd']['units'] | default([]) | union(ignition_updates['systemd']['units']) }}"
+    #- set_fact:
+    #    ignition_json: "{% set test = ignition_json.update({'systemd': {'units': systemd_units}}) %}{{ ignition_json }}"
 - name: combine
   set_fact:
-    systemd_units: "{{ ignition_json['systemd']['units'] | default([]) | union(ignition_updates['systemd']['units']) }}"
+    systemd_units: "{{ ignition_json['storage']['files'] | default([]) | union(ignition_updates['storage']['files']) }}"
 - set_fact:
-    ignition_json: "{% set test = ignition_json.update({'systemd': {'units': systemd_units}}) %}{{ ignition_json }}"
+    ignition_json: "{% set test = ignition_json.update({'storage': {'files': systemd_units}}) %}{{ ignition_json }}"
 
 - name: Create Ignition Files
   copy:

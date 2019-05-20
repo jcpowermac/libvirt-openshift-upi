@@ -1,3 +1,10 @@
 ---
 
 - name: template dnsmasq entries
+  template:
+
+
+- name: reload dnsmasq
+  systemd:
+    name: dnsmasq
+    state: restarted

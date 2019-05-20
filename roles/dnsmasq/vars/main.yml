@@ -1,0 +1,6 @@
+---
+
+cluster_domain: "{{ cluster_id }}.{{ base_domain }}"
+
+
+
