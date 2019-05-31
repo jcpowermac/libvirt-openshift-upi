@@ -1,10 +1,48 @@
 ---
-
-ignition_json:
+ignition:
   ignition:
-    version: "2.2.0"
+    config: {}
+    security:
+      tls: {}
+    timeouts: {}
+    version: 2.2.0
+  passwd:
+    users:
+    - name: core
+      groups:
+      - "sudo"
+      - "wheel"
+      passwordHash: "$6$rounds=4096$a.BfftjZojgJQqR0$WbJvs7aNoNqWjR7DR.StehkKeooKlRH9TsFRq867gXPGn6d0YC5mahU4SaOhBVtpFucDhh.kh61IIm6jN43Py."
+      sshAuthorizedKeys:
+      - "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDhRqBpUUNpS9EThvy0lAVsVh58I35ylGVi7/AS0L5HQP9p3rssCGPLCZO5WNrmgc7cIHfIGIBwoqLUa//PeOPeO/iNUR5O6smA9OBbfYO+C44JsJq8lJYEhnCsdT/atIPA1D6+3VOPLdYz5CiRmwjD9SaS1M84ZZQUjEXCmw+7FZh63Y41eZY3mwJ0z+ci8ds5nXNAyRNcXIugODBOEUqX+EK/aRwPdXzVV3RcCtck3YHttpmWzOuxqw0Iji8OKpoOCTxXUccfO4JH1s/8YFZ5YhxIemKh1YqKGWGxiyNRT5qE92M4aHoQGXc2dMtnJV5Ym3+5MQEbBwauNV4U/u7X root@uranium.virtomation.com"
+  storage:
+    files:
+    - filesystem: "root"
+      path: "/etc/sysconfig/network-scripts/ifcfg-{{ iface }}"
+      mode: 420
+      contents:
+        source: "data:,{{ lookup('template', 'ifcfg.j2') | urlencode() }}"
+      user:
+        name: "root"
+    - filesystem: "root"
+      path: "/etc/haproxy/haproxy.cfg"
+      mode: 420
+      contents:
+        source: "data:text/plain;charset=utf-8;base64,{{ lookup('template', 'haproxy.cfg.j2') | b64encode }}"
+      user:
+        name: "root"
   systemd:
     units:
+    - name: restart.service
+      enable: true
+      contents: |
+        [Unit]
+        ConditionFirstBoot=yes
+        [Service]
+        Type=idle
+        ExecStart=/sbin/reboot
+        [Install]
+        WantedBy=multi-user.target
     - name: haproxy.service
       enable: true
       contents: |
@@ -23,21 +61,3 @@ ignition_json:
         RestartSec=30
         [Install]
         WantedBy=multi-user.target
-
-  storage:
-    files:
-    - filesystem: "root"
-      path: "/etc/haproxy/haproxy.conf"
-      mode: 420
-      contents:
-        source: "data:text/plain;charset=utf-8;{{ lookup('template', 'haproxy.conf.j2') | b64encode }}"
-      user:
-        name: "root"
-    - filesystem: "root"
-      path: "/etc/sysconfig/network-scripts/ifcfg-{{ iface }}"
-      mode: 420
-      contents:
-        source: "data:,{{ lookup('template', 'ifcfg.j2') | urlencode() }}"
-      user:
-        name: "root"
-

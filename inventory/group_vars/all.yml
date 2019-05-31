@@ -12,3 +12,5 @@ libvirt_uri: 'qemu+ssh://root@172.31.52.110/system'
 
 libvirt_base_vol_path: '/nvme/'
 libvirt_rhcos_path: '/instances/rhcos-clean.qcow2'
+
+oc: "/var/home/jlcallen/bin/oc"

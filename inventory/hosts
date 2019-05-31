@@ -11,7 +11,10 @@ master1.virtomation.com ip=172.31.50.101
 worker1.virtomation.com ip=172.31.50.111
 
 [bootstrap]
-bootstrap1.virtomation.com ip=172.31.50.100
+bootstrap1.virtomation.com ip=172.31.50.99
 
 [lb]
-lb1.virtomation.com
+lb1.virtomation.com ip=172.31.50.100
+
+[dns]
+172.31.52.123

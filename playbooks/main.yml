@@ -1,20 +1,29 @@
 ---
+#- name: Create DNS Entries
+#  hosts: dns
+#  gather_facts: false
+#  tasks:
+#  - import_role:
+#      name: dnsmasq
+#
 - name: OpenShift Prereq and Configuration
-  hosts: localhost
+  hosts: lb
   connection: local
-  gather_facts: true
-  tasks:
-  - import_role:
-      name: openshift_client
-  - import_role:
-      name: assets
-
-- name: OpenShift installer
-  hosts: masters:workers:bootstrap
   gather_facts: false
   tasks:
+    #  - import_role:
+    #      name: openshift_client
+    #  - import_role:
+    #      name: assets
   - import_role:
-      name: nodes
-  - import_role:
-      name: machines
-
+      name: lb
+      #
+      #- name: OpenShift installer
+      #  hosts: masters:workers:bootstrap
+      #  gather_facts: false
+      #  tasks:
+      #  - import_role:
+      #      name: nodes
+      #  - import_role:
+      #      name: machines
+      #

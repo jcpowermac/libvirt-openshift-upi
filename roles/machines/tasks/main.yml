@@ -1,10 +1,10 @@
 ---
-- name: Copy image
-  copy:
-    src: "{{ libvirt_rhcos_path }}"
-    dest: "{{ libvirt_base_vol_path }}/{{ inventory_hostname.split('.')[0] }}.qcow2"
-    remote_src: true
-  delegate_to: libvirt1
+#- name: Copy image
+#  copy:
+#    src: "{{ libvirt_rhcos_path }}"
+#    dest: "{{ libvirt_base_vol_path }}/{{ inventory_hostname.split('.')[0] }}.qcow2"
+#    remote_src: true
+#  delegate_to: libvirt1
 
 - name: Define libvirt domain
   virt:

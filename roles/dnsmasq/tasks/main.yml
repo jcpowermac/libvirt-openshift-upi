@@ -2,7 +2,8 @@
 
 - name: template dnsmasq entries
   template:
-
+    src: openshift.j2
+    dest: /etc/dnsmasq.d/openshift.conf
 
 - name: reload dnsmasq
   systemd:
